@@ -33,7 +33,6 @@ const props = defineProps({
   border-radius: 8px;
   text-align: left;
   padding: 10px;
-  border-bottom: 1px solid #464646;
 }
 
 .sidebar__item__container-title {

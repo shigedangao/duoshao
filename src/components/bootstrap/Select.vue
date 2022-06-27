@@ -1,0 +1,71 @@
+<script setup>
+import { ref } from "vue";
+
+// state
+const selected = ref('chinese')
+
+// props
+const props = defineProps({
+  selected: {
+    type: Function,
+    required: true
+  }
+})
+
+const onSelected = () => {
+  props.selected(selected.value)
+}
+</script>
+
+<template>
+  <div class="searchbar__container" v-bind:class="{'focus': highlight}">
+    <font-awesome-icon icon="fa-regular fa-heart" />
+    <select name="language" v-model="selected" @change="onSelected">
+      <option value="chinese">Chinese</option>
+      <option value="laotian">Laotian</option>
+    </select>
+  </div>
+</template>
+
+<style scoped>
+.searchbar__container {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 3px 10px;
+  margin-right: 15px;
+}
+
+select {
+  margin-left: 5px;
+  background-color: transparent;
+  appearance: none;
+  border: 0px;
+  padding: 0px 10px;
+  font-size: 0.8em;
+}
+
+.focus {
+  border: 1px solid #A91E85 !important;
+}
+
+input.middle:focus {
+    outline-width: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .searchbar__container {
+    border: 1px solid #5F6164;
+  }
+
+  select {
+    color: white;
+  }
+}
+</style>

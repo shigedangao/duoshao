@@ -1,10 +1,14 @@
 <script setup>
 import Sidebar from './components/Sidebar.vue'
+import Topbar from './components/Topbar.vue'
 </script>
 
 <template>
   <div id="app">
     <Sidebar />
+    <div class="main">
+      <Topbar />
+    </div>
   </div>
 </template>
 
@@ -27,6 +31,12 @@ p {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  width: 100%;
+}
+
+.main {
+  flex-grow: 1;
 }
 
 @media (prefers-color-scheme: dark) {
