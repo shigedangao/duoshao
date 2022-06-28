@@ -1,6 +1,8 @@
 <script setup>
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
+import Scratchpad from './components/Scratchpad.vue'
+import Generated from './components/Generated.vue'
 </script>
 
 <template>
@@ -8,6 +10,10 @@ import Topbar from './components/Topbar.vue'
     <Sidebar />
     <div class="main">
       <Topbar />
+      <div class="core__container">
+        <Scratchpad />
+        <Generated />
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +43,10 @@ p {
 
 .main {
   flex-grow: 1;
+}
+
+.core__container {
+  display: flex;
 }
 
 @media (prefers-color-scheme: dark) {

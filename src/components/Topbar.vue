@@ -2,6 +2,12 @@
 import Select from './bootstrap/Select.vue'
 import { invoke } from '@tauri-apps/api';
 
+/**
+ * Selected
+ *  Set the selected language for the app
+ * 
+ * @param {String} value
+ */
 const selected = (value) => {
   invoke('set_language', { lang: value })
     .catch(err => console.log(err))
