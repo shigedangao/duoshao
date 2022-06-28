@@ -1,6 +1,11 @@
 <script setup>
+import { useLanguage } from "../store";
 import Select from './bootstrap/Select.vue'
-import { invoke } from '@tauri-apps/api';
+
+// import the store
+const store = useLanguage()
+
+const { setLanguage } = store
 
 /**
  * Selected
@@ -9,7 +14,7 @@ import { invoke } from '@tauri-apps/api';
  * @param {String} value
  */
 const selected = (value) => {
-  invoke('set_language', { lang: value })
+  setLanguage(value)
     .catch(err => console.log(err))
 }
 </script>

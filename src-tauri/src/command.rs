@@ -1,4 +1,5 @@
-use tauri::State;
+use tauri::{State, InvokeError};
+use xuexi::definition::Definition;
 use crate::state::{Data, Language};
 
 /// Set the language. This will be used by the app
@@ -22,4 +23,10 @@ pub fn set_language(lang: &str, state: State<Data>) {
     }
 
     // lock is drop at the end of the function
+}
+
+#[tauri::command]
+pub fn generate_definitions<'cmd>(content: &'cmd str, state: State<Data>) -> Result<Vec<Definition>, InvokeError> {
+    state.get_detected_word_list(content)
+        .map_err(InvokeError::from)
 }

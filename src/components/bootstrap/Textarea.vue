@@ -30,9 +30,16 @@ watch(content, newContent => {
   border: 1px solid transparent;
   font-size: 1em;
   resize: none;
+  background-color: transparent;
 }
 
 textarea:focus {
   outline: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .typing {
+    color: white;
+  }
 }
 </style>

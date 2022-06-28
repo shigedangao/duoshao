@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import { invoke } from '@tauri-apps/api'
 import { appWindow } from '@tauri-apps/api/window'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -19,9 +20,10 @@ library.add([
   faHeart
 ])
 
-invoke('hello_tauri', {})
-    .then(response => console.log(response))
+// create the store
+const pinia = createPinia()
 
 createApp(App)
+  .use(pinia)
   .component('font-awesome-icon', FontAwesomeIcon)
   .mount('#app')

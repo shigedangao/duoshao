@@ -5,6 +5,7 @@
 
 mod state;
 mod command;
+mod error;
 
 fn main() {
   let context = tauri::generate_context!();
@@ -12,7 +13,8 @@ fn main() {
     .menu(tauri::Menu::os_default(&context.package_info().name))
     .invoke_handler(tauri::generate_handler![
       hello_tauri,
-      command::set_language
+      command::set_language,
+      command::generate_definitions
     ])
     .manage(state::Data::new())
     .run(context)
