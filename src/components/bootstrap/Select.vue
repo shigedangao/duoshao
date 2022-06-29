@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { TranslateIcon } from '@heroicons/vue/outline'
 
 // state
 const selected = ref('chinese')
@@ -19,7 +20,7 @@ const onSelected = () => {
 
 <template>
   <div class="searchbar__container" v-bind:class="{'focus': highlight}">
-    <font-awesome-icon icon="fa-regular fa-heart" />
+    <TranslateIcon class="translate-icon" />
     <select name="language" v-model="selected" @change="onSelected">
       <option value="chinese">Chinese</option>
       <option value="laotian">Laotian</option>
@@ -30,9 +31,18 @@ const onSelected = () => {
 <style scoped>
 .searchbar__container {
   border: 1px solid grey;
-  border-radius: 5px;
-  padding: 3px 10px;
+  border-radius: 8px;
+  padding: 5px 10px;
   margin-right: 15px;
+  display: flex;
+  width: 180px;
+  align-items: center;
+}
+
+.translate-icon {
+  width: 15px;
+  height: 15px;
+  color: #B2B0B1;
 }
 
 select {
@@ -42,6 +52,7 @@ select {
   border: 0px;
   padding: 0px 10px;
   font-size: 0.8em;
+  width: 100%;
 }
 
 .focus {
@@ -65,7 +76,7 @@ button:focus {
   }
 
   select {
-    color: white;
+    color: #B2B0B1;
   }
 }
 </style>

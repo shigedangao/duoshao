@@ -29,11 +29,12 @@ const { generatedDefinitions } = storeToRefs(store)
   width: 50%;
   background-color: #F2F2F2;
   height: 100vh;
-  overflow-y: auto;
 }
 
 .container {
   padding: 0px 20px;
+  overflow-y: auto;
+  height: 90vh;
 }
 
 .label {

@@ -1,5 +1,6 @@
 <script setup>
 import { useLanguage } from "../store";
+import { TrashIcon, UploadIcon } from '@heroicons/vue/outline'
 import Select from './bootstrap/Select.vue'
 
 // import the store
@@ -23,8 +24,8 @@ const selected = (value) => {
   <div class="topbar__container">
     <Select :selected="selected" />
     <div class="topbar__container-icon">
-      <font-awesome-icon class="topbar-icon" icon="fa-regular fa-trash-can" />
-      <font-awesome-icon class="topbar-icon" icon="fa-regular fa-share-from-square" />
+      <TrashIcon class="topbar-icon" />
+      <UploadIcon class="topbar-icon" />
     </div>
   </div>
 </template>
@@ -38,14 +39,17 @@ const selected = (value) => {
   justify-content: end;
 }
 
+.topbar__container-icon {
+  display: flex;
+}
+
 .topbar-icon {
   color: #B2B0B1;
-  font-size: 1.5em;
-  padding: 0px 5px;
   margin-right: 10px;
   transition: background-color 100ms ease-in-out;
-  padding: 5px;
   border-radius: 8px;
+  width: 24px;
+  height: 24px;
 }
 
 .topbar-icon:hover {

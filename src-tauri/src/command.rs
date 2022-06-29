@@ -25,12 +25,23 @@ pub fn set_language(lang: &str, state: State<Data>) {
     // lock is drop at the end of the function
 }
 
+/// Generate the definition from a given string slice content
+/// 
+/// # Arguments
+/// 
+/// * `&str` - content
+/// * `state` - State<Data>
 #[tauri::command]
 pub fn generate_definitions<'cmd>(content: &'cmd str, state: State<Data>) -> Result<Vec<Definition>, InvokeError> {
     state.get_detected_word_list(content)
         .map_err(InvokeError::from)
 }
 
+/// Get the en definition from a definition struct
+/// 
+/// # Arguments
+/// 
+/// * `def` - Definition
 #[tauri::command]
 pub fn get_definition_vec(def: Definition) -> Vec<String> {
     def.get_english_translations()

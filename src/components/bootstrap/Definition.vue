@@ -1,6 +1,4 @@
 <script setup>
-import { invoke } from '@tauri-apps/api';
-import { ref } from 'vue';
 import { generateLightColorHex } from '../../utils';
 import Count from './Count.vue';
 
@@ -12,11 +10,6 @@ const props = defineProps({
 })
 
 const color = generateLightColorHex()
-const translation = ref([])
-
-invoke('get_definition_vec', { def: props.definition })
-  .then(res => translation.value = res)
-  .catch(err => console.log(err))
 </script>
 
 <template>
@@ -27,7 +20,7 @@ invoke('get_definition_vec', { def: props.definition })
       <p class="definition-content">Pronounciation: {{definition.pronunciation}}</p>
       <p class="definition-content">Translation:</p>
       <div class="translation__content">
-        <p class="translation__content-item" v-for="t in translation">
+        <p class="translation__content-item" v-for="t in definition.translations">
           - {{t}}
         </p>
       </div>

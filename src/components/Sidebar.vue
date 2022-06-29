@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { PencilAltIcon } from '@heroicons/vue/outline'
 import Item from './bootstrap/sidebar/Item.vue'
 
 // data
@@ -29,7 +30,7 @@ function stopDrag() {
   <div class="sidebar__container" :style="{width: `${position}%`}" @mouseup="stopDrag">
     <div class="sidebar__container-item">
       <div class="sidebar__container-icon">
-        <font-awesome-icon icon="fa-regular fa-pen-to-square" id="pen-icon" />
+        <PencilAltIcon class="pen-icon" />
       </div>
       <Item title="foo" date="2022-06-01" label="chinese" />
     </div>
@@ -62,10 +63,11 @@ function stopDrag() {
   background-color: #EBEAE8;
 }
 
-#pen-icon {
+.pen-icon {
   display: block;
-  font-size: 1.5em;
   color: #B2B0B0;
+  width: 24px;
+  height: 24px;
 }
 
 .sidebar__container-item {
