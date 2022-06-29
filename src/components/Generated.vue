@@ -8,13 +8,12 @@ const store = useLanguage()
 
 // get the selected content
 const { generatedDefinitions } = storeToRefs(store)
-console.log(generatedDefinitions)
 </script>
 
 <template>
   <div class="generated__container">
     <p class="label">Generated</p>
-    <div class="generated__container">
+    <div class="container">
       <div
         class="generated__container-item"
         v-for="def in generatedDefinitions"
@@ -27,9 +26,14 @@ console.log(generatedDefinitions)
 
 <style>
 .generated__container {
-  flex-grow: 2;
+  width: 50%;
   background-color: #F2F2F2;
   height: 100vh;
+  overflow-y: auto;
+}
+
+.container {
+  padding: 0px 20px;
 }
 
 .label {

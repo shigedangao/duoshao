@@ -14,7 +14,8 @@ fn main() {
     .invoke_handler(tauri::generate_handler![
       hello_tauri,
       command::set_language,
-      command::generate_definitions
+      command::generate_definitions,
+      command::get_definition_vec
     ])
     .manage(state::Data::new())
     .run(context)

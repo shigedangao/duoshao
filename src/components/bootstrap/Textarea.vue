@@ -18,7 +18,7 @@ watch(content, newContent => {
 
 <template>
   <div class="input__container">
-    <textarea class="typing" v-model="content" />
+    <textarea class="typing" v-model="content" placeholder="Enter your text" />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 use std::sync::Mutex;
-use xuexi::chinese::Dictionnary as CNDictionnary;
-use xuexi::laotian::Dictionnary as LaoDictionnary;
+use xuexi::chinese::Dictionary as CNDictionnary;
+use xuexi::laotian::Dictionary as LaoDictionnary;
 use xuexi::common::{DetectWord, Ops};
 use xuexi::definition::Definition;
 use crate::error::Error;
@@ -29,8 +29,10 @@ impl Data {
     /// in the memory. Maybe it could be better to initialize them later when the user select one
     /// of the language
     pub fn new() -> Self {
-        let chinese = xuexi::load_chinese_dictionnary();
-        let laotian = xuexi::load_laotian_dictionnary()
+        let chinese = xuexi::load_chinese_dictionary()
+            .expect("Expect to load chinese dictionary");
+            
+        let laotian = xuexi::load_laotian_dictionary()
             .expect("Expect to load laotian dictionary");
 
         Data {

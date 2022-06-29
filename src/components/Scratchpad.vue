@@ -17,13 +17,14 @@ const triggerTextAnalysis = content => {
 
 <template>
   <div class="scratchpad__container">
+    <p class="label">Scratchpad</p>
     <Textarea :callback="triggerTextAnalysis" />
   </div>
 </template>
 
 <style>
 .scratchpad__container {
-  flex-grow: 1;
+  width: 50%;
   padding: 0px 10px 5px 10px;
 }
 
