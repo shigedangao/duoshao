@@ -1,10 +1,10 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import { useLanguage } from '../store';
+import { useNote } from '../store/note';
 import Definition from './bootstrap/Definition.vue';
 
 // import the store
-const store = useLanguage()
+const store = useNote()
 
 // get the selected content
 const { generatedDefinitions } = storeToRefs(store)

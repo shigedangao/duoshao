@@ -10,15 +10,23 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  id: {
+    type: String,
+    required: true
+  },
   label: {
     type: String,
+    required: true
+  },
+  clickCb: {
+    type: Function,
     required: true
   }
 })
 </script>
 
 <template>
-  <div class="sidebar__item__container">
+  <div class="sidebar__item__container" @click="clickCb(props.id)">
     <p class="sidebar__item__container-title">{{ props.title }}</p>
     <p class="sidebar__item__container-date">{{ props.date }}</p>
     <Tag :label="props.label" />

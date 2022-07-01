@@ -2,11 +2,23 @@
 import { ref } from 'vue';
 import { PencilAltIcon } from '@heroicons/vue/outline'
 import Item from './bootstrap/sidebar/Item.vue'
+import { useNote } from '../store/note';
+import { storeToRefs } from 'pinia';
 
-// data
+// Load the store
+const noteStore = useNote()
+// Create a ref
 const position = ref(20);
+// Link the store
+const { notes } = storeToRefs(noteStore)
+const { createNewNote, setWorkingNoteID } = noteStore
 
-function handleDragging(e) {
+/**
+ * Handle Dragging
+ * 
+ * @param {Event} e 
+ */
+const handleDragging = e => {
   const percentage = (e.pageX / window.innerWidth) * 100;
 
   if (percentage >= 10 && percentage <= 25) {
@@ -16,23 +28,31 @@ function handleDragging(e) {
   }
 }
 
-function startDrag() {
+const startDrag = () => {
   document.addEventListener('mousemove', handleDragging)
 }
 
-function stopDrag() {
+const stopDrag = () => {
   document.removeEventListener('mousemove', handleDragging)
 }
-
 </script>
 
 <template>
   <div class="sidebar__container" :style="{width: `${position}%`}" @mouseup="stopDrag">
     <div class="sidebar__container-item">
       <div class="sidebar__container-icon">
-        <PencilAltIcon class="pen-icon" />
+        <PencilAltIcon class="pen-icon" @click="createNewNote" />
       </div>
-      <Item title="foo" date="2022-06-01" label="chinese" />
+      <div class="sidebar__container-list">
+        <Item
+          v-for="n in notes"
+          :id="n.id"
+          :title="n.title"
+          :date="n.date"
+          :label="n.label"
+          :click-cb="setWorkingNoteID"
+        />
+      </div>
     </div>
     <div
       class="sidebar__container-handle"
@@ -101,6 +121,5 @@ function stopDrag() {
   .sidebar__container-icon:hover {
     background-color: #393B3F;
   }
-
 }
 </style>

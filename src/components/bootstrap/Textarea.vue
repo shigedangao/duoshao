@@ -1,24 +1,37 @@
 <script setup>
 import { useDebouncedRef } from "../../utils"
-import { watch } from "vue"
+import { ref, watch } from "vue"
 
 const props = defineProps({
   callback: {
     type: Function,
     required: true
+  },
+  initialContent: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 
-const content = useDebouncedRef('')
+let debounce = null
+const callback = event => {
+  clearTimeout(debounce)
+  debounce = setTimeout(() => {
+    props.callback(event.target.value)
+  }, 300)
+}
 
-watch(content, newContent => {
-  props.callback(newContent)
-})
 </script>
 
 <template>
   <div class="input__container">
-    <textarea class="typing" v-model="content" placeholder="Enter your text" />
+    <textarea
+      class="typing"
+      :value="initialContent"
+      placeholder="Enter your text"
+      @input="callback"
+    />
   </div>
 </template>
 

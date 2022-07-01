@@ -2,7 +2,7 @@
 import { generateLightColorHex } from '../../utils';
 import Count from './Count.vue';
 
-const props = defineProps({
+defineProps({
   definition: {
     type: Object,
     required: true

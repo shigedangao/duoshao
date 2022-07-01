@@ -1,24 +1,36 @@
 <script setup>
-import { useLanguage } from "../store";
+import { storeToRefs } from "pinia";
 import Textarea from "./bootstrap/Textarea.vue"
+import { useNote } from "../store/note";
+import { onUpdated, ref } from "vue";
+import { isEmpty } from 'ramda'
 
 // import the store
-const store = useLanguage()
-
-// get some store actions
-const { setContent, generateDefinitions } = store
+const noteStore = useNote()
 
 const triggerTextAnalysis = content => {
-  setContent(content)
-  generateDefinitions()
+  // Save the note with the new content
+  noteStore.editNote({
+    content,
+    title: content.substring(0, 20)
+  })
+  // Generate the definitions by calling Rust
+  noteStore.generateDefinitions()
     .catch(err => console.log(err))
 }
+
+onUpdated(() => {
+  if (!isEmpty(noteStore.getContent)) {
+    noteStore.generateDefinitions()
+      .catch(err => console.log(err))
+  }
+})
 </script>
 
 <template>
   <div class="scratchpad__container">
     <p class="label">Scratchpad</p>
-    <Textarea :callback="triggerTextAnalysis" />
+    <Textarea :callback="triggerTextAnalysis" :initial-content="noteStore.getContent" />
   </div>
 </template>
 
