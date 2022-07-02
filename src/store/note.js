@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import storage from "../storage";
-import { isEmpty, isNil } from "ramda";
+import { filter, isEmpty, isNil } from "ramda";
 import { DateTime } from "luxon";
 import { uuidv4 } from "../utils";
 import { useLanguage } from ".";
@@ -56,17 +56,19 @@ export const useNote = defineStore('note', {
       const note =  {
         id: uuidv4(),
         title: 'New scratchpad',
-        date: DateTime.now().toLocaleString(),
+        date: DateTime.now(),
+        formattedDate: DateTime.now().toLocaleString(),
         label: DEFAULT_NOTE_LABEL,
         content: '',
         generated: []
       }
 
       const copy = this.notes.slice()
-      copy.push(note)
+      copy.unshift(note)
 
       this.notes = copy.slice()
       this.setWorkingNoteID(note.id)
+      this.generatedDefinitions = []
 
       storage.set(NOTE_STORE_KEY, this.notes)
     },
@@ -104,13 +106,28 @@ export const useNote = defineStore('note', {
      * 
      * @param {String} id 
      */
-    async deleteNote(id) {
-      const filtered = this.notes.filter(n => n.id !== id)
-      this.notes = filtered;
+    async deleteNote() {
+      if (this.notes.length === 1) {
+        return
+      } 
 
+      const itemIdx = this.notes.findIndex(n => n.id !== this.currentNoteID)
+      const filtered = this.notes.filter(n => n.id !== this.currentNoteID)
+
+      this.notes = filtered;
       storage.set(NOTE_STORE_KEY, this.notes)
 
+      if (!isNil(filtered[itemIdx])) {
+        console.log(filtered[itemIdx])
+        this.currentNoteID = filtered[itemIdx].id
+      } else {
+        this.currentNoteID = filtered[filtered.length - 1].id
+      }
+
       return Promise.resolve()
+    },
+    setEmptyDefinitions() {
+      this.generatedDefinitions = []
     },
     /**
      * 

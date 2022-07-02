@@ -19,7 +19,7 @@ const onSelected = () => {
 </script>
 
 <template>
-  <div class="searchbar__container" v-bind:class="{'focus': highlight}">
+  <div class="searchbar__container">
     <TranslateIcon class="translate-icon" />
     <select name="language" v-model="selected" @change="onSelected">
       <option value="chinese">Chinese</option>

@@ -6,7 +6,7 @@ const props = defineProps({
     type: String,
     required: true
   },
-  date: {
+  formattedDate: {
     type: String,
     required: true,
   },
@@ -28,7 +28,7 @@ const props = defineProps({
 <template>
   <div class="sidebar__item__container" @click="clickCb(props.id)">
     <p class="sidebar__item__container-title">{{ props.title }}</p>
-    <p class="sidebar__item__container-date">{{ props.date }}</p>
+    <p class="sidebar__item__container-date">{{ props.formattedDate }}</p>
     <Tag :label="props.label" />
   </div>
 </template>

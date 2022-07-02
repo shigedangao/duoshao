@@ -2,9 +2,11 @@
 import { useLanguage } from "../store";
 import { TrashIcon, UploadIcon } from '@heroicons/vue/outline'
 import Select from './bootstrap/Select.vue'
+import { useNote } from "../store/note";
 
 // import the store
 const store = useLanguage()
+const noteStore = useNote()
 
 const { setLanguage } = store
 
@@ -24,7 +26,7 @@ const selected = (value) => {
   <div class="topbar__container">
     <Select :selected="selected" />
     <div class="topbar__container-icon">
-      <TrashIcon class="topbar-icon" />
+      <TrashIcon class="topbar-icon" @click="noteStore.deleteNote" />
       <UploadIcon class="topbar-icon" />
     </div>
   </div>

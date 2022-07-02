@@ -23,6 +23,8 @@ onUpdated(() => {
   if (!isEmpty(noteStore.getContent)) {
     noteStore.generateDefinitions()
       .catch(err => console.log(err))
+  } else {
+    noteStore.setEmptyDefinitions()
   }
 })
 </script>

@@ -48,7 +48,7 @@ const stopDrag = () => {
           v-for="n in notes"
           :id="n.id"
           :title="n.title"
-          :date="n.date"
+          :formattedDate="n.formattedDate"
           :label="n.label"
           :click-cb="setWorkingNoteID"
         />
