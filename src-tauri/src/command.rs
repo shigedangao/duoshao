@@ -1,6 +1,9 @@
+use std::fs;
 use tauri::{State, InvokeError};
 use xuexi::definition::{Definition, CommonDefinitionLanguage};
+use xuexi::export;
 use crate::state::{Data, Language};
+use crate::error::Error;
 
 /// Set the language. This will be used by the app
 /// to select which dictionnary to use to analyze the given text
@@ -45,4 +48,21 @@ pub fn generate_definitions<'cmd>(content: &'cmd str, state: State<Data>) -> Res
 #[tauri::command]
 pub fn get_definition_vec(def: Definition) -> Vec<String> {
     def.get_english_translations()
+}
+
+/// Export the definitions into a CSV
+/// 
+/// # Arguments
+/// 
+/// * `defs` - Vec<Definition>
+/// * `path` - &str
+#[tauri::command]
+pub fn export_definition_to_csv(defs: Vec<Definition>, path: &str) -> Result<(), InvokeError> {
+    let csv = export::export_to_csv(defs)
+        .map_err(|err| InvokeError::from(Error::Export(err.to_string())))?;
+
+    fs::write(path, csv)
+        .map_err(|err| InvokeError::from(Error::IO(err.to_string())))?;
+
+    Ok(())
 }

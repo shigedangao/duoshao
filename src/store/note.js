@@ -167,6 +167,20 @@ export const useNote = defineStore('note', {
       langStore.setLanguage(notes[0].label)
 
       return Promise.resolve()
+    },
+    /**
+     * Export to CSV the definitions
+     * 
+     * @param {String} path 
+     * @returns 
+     */
+    async exportToCSV(path) {
+      await invoke('export_definition_to_csv', {
+        defs: this.generatedDefinitions,
+        path
+      })
+
+      return Promise.resolve()
     }
   }
 })

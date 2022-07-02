@@ -1,8 +1,7 @@
 <script setup>
-import { storeToRefs } from "pinia";
 import Textarea from "./bootstrap/Textarea.vue"
 import { useNote } from "../store/note";
-import { onUpdated, ref } from "vue";
+import { onUpdated } from "vue";
 import { isEmpty } from 'ramda'
 
 // import the store

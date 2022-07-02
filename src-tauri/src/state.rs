@@ -1,7 +1,8 @@
 use std::sync::Mutex;
 use xuexi::chinese::Dictionary as CNDictionnary;
 use xuexi::laotian::Dictionary as LaoDictionnary;
-use xuexi::common::{DetectWord, Ops};
+use xuexi::word::DetectWord;
+use xuexi::ordering::Ops;
 use xuexi::definition::Definition;
 use crate::error::Error;
 
