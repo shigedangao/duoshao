@@ -58,6 +58,10 @@ const props = defineProps({
   transition: background-color 100ms ease-in-out;
 }
 
+.sidebar__item__container:hover {
+  cursor: pointer;
+}
+
 .sidebar__item__container.active {
   background-color: #79AADF;
 }

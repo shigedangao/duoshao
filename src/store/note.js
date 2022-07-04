@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import storage from "../storage";
-import { filter, isEmpty, isNil } from "ramda";
+import { isEmpty, isNil } from "ramda";
 import { DateTime } from "luxon";
 import { uuidv4 } from "../utils";
 import { useLanguage } from ".";
 import { invoke } from "@tauri-apps/api";
+import { message } from "@tauri-apps/api/dialog";
 
 // constant
 const NOTE_STORE_KEY = 'note'
@@ -108,6 +109,10 @@ export const useNote = defineStore('note', {
      */
     async deleteNote() {
       if (this.notes.length === 1) {
+        await message(`You can't delete the last item of the note`, {
+          title: 'Warning',
+          type: 'warning'
+        })
         return
       } 
 

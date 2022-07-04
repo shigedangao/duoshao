@@ -22,7 +22,7 @@ const { createNewNote, setWorkingNoteID } = noteStore
 const handleDragging = e => {
   const percentage = (e.pageX / window.innerWidth) * 100;
 
-  if (percentage >= 10 && percentage <= 25) {
+  if (percentage >= 15 && percentage <= 25) {
     position.value = percentage.toFixed(2)
   } else {
     stopDrag()
