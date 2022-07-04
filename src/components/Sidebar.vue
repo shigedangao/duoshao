@@ -8,7 +8,8 @@ import { storeToRefs } from 'pinia';
 // Load the store
 const noteStore = useNote()
 // Create a ref
-const position = ref(20);
+const position = ref(20)
+const selectedIndex = ref(0)
 // Link the store
 const { notes } = storeToRefs(noteStore)
 const { createNewNote, setWorkingNoteID } = noteStore
@@ -35,6 +36,11 @@ const startDrag = () => {
 const stopDrag = () => {
   document.removeEventListener('mousemove', handleDragging)
 }
+
+function itemCallback(id) {
+  selectedIndex.value = this.index
+  setWorkingNoteID(id)
+}
 </script>
 
 <template>
@@ -45,12 +51,14 @@ const stopDrag = () => {
       </div>
       <div class="sidebar__container-list">
         <Item
-          v-for="n in notes"
+          v-for="(n, idx) in notes"
           :id="n.id"
           :title="n.title"
           :formattedDate="n.formattedDate"
           :label="n.label"
-          :click-cb="setWorkingNoteID"
+          :click-cb="itemCallback"
+          :active="selectedIndex === idx"
+          :index="idx"
         />
       </div>
     </div>
@@ -106,6 +114,11 @@ const stopDrag = () => {
 
 .sidebar__container-handle {
   background-color: #E6E6E6;
+}
+
+.sidebar__container-list {
+  height: 100%;
+  overflow-y: auto;
 }
 
 @media (prefers-color-scheme: dark) {
