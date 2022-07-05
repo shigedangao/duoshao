@@ -1,0 +1,16 @@
+name: lint
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: check npx lint
+        run: npx prettier --check "src"
+      - name: install clippy
+        run: rustup component add clippy
+      - name: run clippy
+        working-directory: src-tauri
+        run: cargo clippy

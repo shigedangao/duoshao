@@ -35,7 +35,7 @@ pub fn set_language(lang: &str, state: State<Data>) {
 /// * `&str` - content
 /// * `state` - State<Data>
 #[tauri::command]
-pub fn generate_definitions<'cmd>(content: &'cmd str, state: State<Data>) -> Result<Vec<Definition>, InvokeError> {
+pub fn generate_definitions(content: &str, state: State<Data>) -> Result<Vec<Definition>, InvokeError> {
     state.get_detected_word_list(content)
         .map_err(InvokeError::from)
 }
