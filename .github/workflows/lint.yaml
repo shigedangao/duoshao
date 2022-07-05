@@ -7,6 +7,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+      - name: create dist dir
+        run: mkdir dist
       - name: check npx lint
         run: npx prettier --check "src"
       - name: install clippy
