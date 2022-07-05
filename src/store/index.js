@@ -1,6 +1,6 @@
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'
 import { invoke } from '@tauri-apps/api'
-import { useNote } from "./note"
+import { useNote } from './note'
 
 export const useLanguage = defineStore('language', {
   state: () => {
@@ -13,8 +13,9 @@ export const useLanguage = defineStore('language', {
       const note = useNote()
       this.selectedLanguage = lang
 
-      return invoke('set_language', { lang })
-        .then(() => note.editNote({ label: lang }))
+      return invoke('set_language', { lang }).then(() =>
+        note.editNote({ label: lang })
+      )
     },
-  }
+  },
 })

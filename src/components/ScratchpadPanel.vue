@@ -1,27 +1,25 @@
 <script setup>
-import Textarea from "./bootstrap/Textarea.vue"
-import { useNote } from "../store/note";
-import { onUpdated } from "vue";
+import TextareaItem from './bootstrap/TextareaItem.vue'
+import { useNote } from '../store/note'
+import { onUpdated } from 'vue'
 import { isEmpty } from 'ramda'
 
 // import the store
 const noteStore = useNote()
 
-const triggerTextAnalysis = content => {
+const triggerTextAnalysis = (content) => {
   // Save the note with the new content
   noteStore.editNote({
     content,
-    title: content.substring(0, 20)
+    title: content.substring(0, 20),
   })
   // Generate the definitions by calling Rust
-  noteStore.generateDefinitions()
-    .catch(err => console.log(err))
+  noteStore.generateDefinitions().catch((err) => console.log(err))
 }
 
 onUpdated(() => {
   if (!isEmpty(noteStore.getContent)) {
-    noteStore.generateDefinitions()
-      .catch(err => console.log(err))
+    noteStore.generateDefinitions().catch((err) => console.log(err))
   } else {
     noteStore.setEmptyDefinitions()
   }
@@ -31,7 +29,10 @@ onUpdated(() => {
 <template>
   <div class="scratchpad__container">
     <p class="label">Scratchpad</p>
-    <Textarea :callback="triggerTextAnalysis" :initial-content="noteStore.getContent" />
+    <textarea-item
+      :callback="triggerTextAnalysis"
+      :initial-content="noteStore.getContent"
+    />
   </div>
 </template>
 
@@ -43,7 +44,7 @@ onUpdated(() => {
 
 @media (prefers-color-scheme: dark) {
   .scratchpad__container {
-    background-color: #1E1E1E;
+    background-color: #e1e1e1;
   }
 }
 </style>

@@ -1,9 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import { PencilAltIcon } from '@heroicons/vue/outline'
-import Item from './bootstrap/sidebar/Item.vue'
-import { useNote } from '../store/note';
-import { storeToRefs } from 'pinia';
+import SidebarItem from './bootstrap/SidebarItem.vue'
+import { useNote } from '../store/note'
+import { storeToRefs } from 'pinia'
 
 // Load the store
 const noteStore = useNote()
@@ -16,26 +16,26 @@ const { createNewNote, setWorkingNoteID } = noteStore
 
 /**
  * Handle Dragging
- * 
- * @param {Event} e 
+ *    Disabled as there is a side effect which highlight other element
+ * @param {Event} e
  */
-const handleDragging = e => {
-  const percentage = (e.pageX / window.innerWidth) * 100;
+//const handleDragging = (e) => {
+//  const percentage = (e.pageX / window.innerWidth) * 100
+//
+//  if (percentage >= 15 && percentage <= 25) {
+//    position.value = percentage.toFixed(2)
+//  } else {
+//    stopDrag()
+//  }
+//}
 
-  if (percentage >= 15 && percentage <= 25) {
-    position.value = percentage.toFixed(2)
-  } else {
-    stopDrag()
-  }
-}
+//const startDrag = () => {
+//  document.addEventListener('mousemove', handleDragging)
+//}
 
-const startDrag = () => {
-  document.addEventListener('mousemove', handleDragging)
-}
-
-const stopDrag = () => {
-  document.removeEventListener('mousemove', handleDragging)
-}
+//const stopDrag = () => {
+//  document.removeEventListener('mousemove', handleDragging)
+//}
 
 function itemCallback(id) {
   selectedIndex.value = this.index
@@ -44,14 +44,19 @@ function itemCallback(id) {
 </script>
 
 <template>
-  <div class="sidebar__container" :style="{width: `${position}%`}" @mouseup="stopDrag">
+  <div
+    class="sidebar__container"
+    :style="{ width: `${position}%` }"
+    @mouseup="stopDrag"
+  >
     <div class="sidebar__container-item">
       <div class="sidebar__container-icon">
         <PencilAltIcon class="pen-icon" @click="createNewNote" />
       </div>
       <div class="sidebar__container-list">
-        <Item
+        <sidebar-item
           v-for="(n, idx) in notes"
+          v-bind:key="idx"
           :id="n.id"
           :title="n.title"
           :formattedDate="n.formattedDate"
@@ -62,20 +67,17 @@ function itemCallback(id) {
         />
       </div>
     </div>
-    <div
-      class="sidebar__container-handle"
-      @mousedown="startDrag"
-      :style="{left: `${position}%`}"
-    ></div>
+    <div class="sidebar__container-handle" />
   </div>
 </template>
 
 <style scoped>
 .sidebar__container {
   height: 100vh;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #454545;
   display: flex;
+  width: 25%;
 }
 
 .sidebar__container-icon {
@@ -88,12 +90,12 @@ function itemCallback(id) {
 }
 
 .sidebar__container-icon:hover {
-  background-color: #EBEAE8;
+  background-color: #ebeae8;
 }
 
 .pen-icon {
   display: block;
-  color: #B2B0B0;
+  color: #b2b0b0;
   width: 24px;
   height: 24px;
 }
@@ -103,17 +105,12 @@ function itemCallback(id) {
 }
 
 .sidebar__container-handle {
-    position: absolute;
-    width: 1px;
-    height: 100vh;
-  }
-
-.sidebar__container-handle:hover {
-  cursor: ew-resize;
+  width: 1px;
+  height: 100vh;
 }
 
 .sidebar__container-handle {
-  background-color: #E6E6E6;
+  background-color: #e6e6e6;
 }
 
 .sidebar__container-list {
@@ -132,7 +129,7 @@ function itemCallback(id) {
   }
 
   .sidebar__container-icon:hover {
-    background-color: #393B3F;
+    background-color: #393b3f;
   }
 }
 </style>

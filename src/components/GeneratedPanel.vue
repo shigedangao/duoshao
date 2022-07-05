@@ -1,7 +1,7 @@
 <script setup>
-import { storeToRefs } from 'pinia';
-import { useNote } from '../store/note';
-import Definition from './bootstrap/Definition.vue';
+import { storeToRefs } from 'pinia'
+import { useNote } from '../store/note'
+import DefinitionItem from './bootstrap/DefinitionItem.vue'
 
 // import the store
 const store = useNote()
@@ -16,9 +16,10 @@ const { generatedDefinitions } = storeToRefs(store)
     <div class="container">
       <div
         class="generated__container-item"
-        v-for="def in generatedDefinitions"
+        v-for="(def, idx) in generatedDefinitions"
+        v-bind:key="idx"
       >
-        <Definition :definition="def"/>
+        <definition-item :definition="def" />
       </div>
     </div>
   </div>
@@ -27,7 +28,7 @@ const { generatedDefinitions } = storeToRefs(store)
 <style>
 .generated__container {
   width: 50%;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   height: 100vh;
 }
 

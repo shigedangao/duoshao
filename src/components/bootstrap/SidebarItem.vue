@@ -1,10 +1,10 @@
 <script setup>
-import Tag from '../Tag.vue'
+import TagItem from './TagItem.vue'
 
 const props = defineProps({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   formattedDate: {
     type: String,
@@ -12,26 +12,26 @@ const props = defineProps({
   },
   id: {
     type: String,
-    required: true
+    required: true,
   },
   label: {
     type: String,
-    required: true
+    required: true,
   },
   clickCb: {
     type: Function,
-    required: true
+    required: true,
   },
   active: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   index: {
     type: Number,
     required: true,
-    default: 0
-  }
+    default: 0,
+  },
 })
 </script>
 
@@ -43,7 +43,7 @@ const props = defineProps({
   >
     <p class="sidebar__item__container-title">{{ props.title }}</p>
     <p class="sidebar__item__container-date">{{ props.formattedDate }}</p>
-    <Tag :label="props.label" />
+    <tag-item :label="props.label" />
   </div>
 </template>
 
@@ -51,7 +51,7 @@ const props = defineProps({
 .sidebar__item__container {
   margin: 10px;
   width: auto;
-  background-color: #DCDCDC;
+  background-color: #dcdcdc;
   border-radius: 8px;
   text-align: left;
   padding: 10px;
@@ -63,7 +63,7 @@ const props = defineProps({
 }
 
 .sidebar__item__container.active {
-  background-color: #79AADF;
+  background-color: #79aadf;
 }
 
 .sidebar__item__container-title {
@@ -81,7 +81,7 @@ const props = defineProps({
   }
 
   .sidebar__item__container.active {
-    background-color: #2B4668 !important;
+    background-color: #2b4668 !important;
   }
 }
 </style>

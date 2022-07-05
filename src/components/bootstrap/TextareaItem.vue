@@ -1,27 +1,23 @@
 <script setup>
-import { useDebouncedRef } from "../../utils"
-import { ref, watch } from "vue"
-
 const props = defineProps({
   callback: {
     type: Function,
-    required: true
+    required: true,
   },
   initialContent: {
     type: String,
     required: false,
-    default: ''
-  }
+    default: '',
+  },
 })
 
 let debounce = null
-const callback = event => {
+const callback = (event) => {
   clearTimeout(debounce)
   debounce = setTimeout(() => {
     props.callback(event.target.value)
   }, 300)
 }
-
 </script>
 
 <template>

@@ -1,13 +1,13 @@
 <script setup>
-const props = defineProps({
+defineProps({
   count: {
     type: Number,
-    required: true
+    required: true,
   },
   color: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 
@@ -15,7 +15,7 @@ const props = defineProps({
   <div class="counter__wrapper">
     <p class="counter__wrapper-label">Founded</p>
     <div class="counter__container" v-bind:style="`border-color: ${color}`">
-      <p v-bind:style="`color: ${color}`">{{count}}</p>
+      <p v-bind:style="`color: ${color}`">{{ count }}</p>
     </div>
   </div>
 </template>

@@ -1,12 +1,12 @@
 <script setup>
-import { generateLightColorHex } from '../../utils';
-import Count from './Count.vue';
+import { generateLightColorHex } from '../../utils'
+import CountItem from './CountItem.vue'
 
 defineProps({
   definition: {
     type: Object,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const color = generateLightColorHex()
@@ -16,22 +16,28 @@ const color = generateLightColorHex()
   <div class="definition-item">
     <div class="bullet" v-bind:style="`background-color: ${color}`"></div>
     <div class="content">
-      <p class="definition-content">{{definition.writing_method}}</p>
-      <p class="definition-content">Pronounciation: {{definition.pronunciation}}</p>
+      <p class="definition-content">{{ definition.writing_method }}</p>
+      <p class="definition-content">
+        Pronounciation: {{ definition.pronunciation }}
+      </p>
       <p class="definition-content">Translation:</p>
       <div class="translation__content">
-        <p class="translation__content-item" v-for="t in definition.translations">
-          - {{t}}
+        <p
+          class="translation__content-item"
+          v-for="(t, idx) in definition.translations"
+          v-bind:key="idx"
+        >
+          - {{ t }}
         </p>
       </div>
     </div>
-    <Count :color="color" :count="definition.count" />
+    <count-item :color="color" :count="definition.count" />
   </div>
 </template>
 
 <style scoped>
 .definition-item {
-  display: flex
+  display: flex;
 }
 
 .content {
@@ -49,7 +55,7 @@ const color = generateLightColorHex()
 }
 
 .translation__content-item {
-  text-align: left
+  text-align: left;
 }
 
 .bullet {

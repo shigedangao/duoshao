@@ -9,9 +9,6 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-regular-svg-icons": "^6.1.1",
-    "@fortawesome/vue-fontawesome": "^3.0.1",
     "@heroicons/vue": "^1.0.6",
     "@tauri-apps/api": "^1.0.1",
     "luxon": "^2.4.0",
@@ -24,6 +21,10 @@
     "@types/luxon": "^2.3.2",
     "@types/ramda": "^0.28.14",
     "@vitejs/plugin-vue": "^2.3.3",
+    "eslint": "^8.19.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.1.1",
+    "prettier": "2.7.1",
     "vite": "^2.9.9"
   }
 }

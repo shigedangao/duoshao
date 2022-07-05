@@ -1,11 +1,11 @@
-import { defineStore } from "pinia";
-import storage from "../storage";
-import { isEmpty, isNil } from "ramda";
-import { DateTime } from "luxon";
-import { uuidv4 } from "../utils";
-import { useLanguage } from ".";
-import { invoke } from "@tauri-apps/api";
-import { message } from "@tauri-apps/api/dialog";
+import { defineStore } from 'pinia'
+import storage from '../storage'
+import { isEmpty, isNil } from 'ramda'
+import { DateTime } from 'luxon'
+import { uuidv4 } from '../utils'
+import { useLanguage } from '.'
+import { invoke } from '@tauri-apps/api'
+import { message } from '@tauri-apps/api/dialog'
 
 // constant
 const NOTE_STORE_KEY = 'note'
@@ -15,12 +15,12 @@ export const useNote = defineStore('note', {
   getters: {
     /**
      * Get Content
-     * 
-     * @param {Object} state 
-     * @returns 
+     *
+     * @param {Object} state
+     * @returns
      */
     getContent: (state) => {
-      const items = state.notes.filter(n => n.id == state.currentNoteID)
+      const items = state.notes.filter((n) => n.id == state.currentNoteID)
       if (isEmpty(items) || isNil(items)) {
         return ''
       }
@@ -37,31 +37,31 @@ export const useNote = defineStore('note', {
    *  "label": "chinese",
    *  "text": "",
    * }
-   * 
+   *
    * @returns
    */
   state: () => {
     return {
       notes: [],
       currentNoteID: '',
-      generatedDefinitions: []
+      generatedDefinitions: [],
     }
   },
   actions: {
     /**
      * Create a new note
-     * 
+     *
      * @returns
      */
     async createNewNote() {
-      const note =  {
+      const note = {
         id: uuidv4(),
         title: 'New scratchpad',
         date: DateTime.now(),
         formattedDate: DateTime.now().toLocaleString(),
         label: DEFAULT_NOTE_LABEL,
         content: '',
-        generated: []
+        generated: [],
       }
 
       const copy = this.notes.slice()
@@ -74,52 +74,53 @@ export const useNote = defineStore('note', {
       storage.set(NOTE_STORE_KEY, this.notes)
     },
     /**
-     * 
-     * @param {String} id 
+     * Set Working ID
+     *
+     * @param {String} id
      */
     setWorkingNoteID(id) {
       this.currentNoteID = id
     },
     /**
      * Edit Note
-     * 
+     *
      * @param {Object} replace
      */
     async editNote(replace) {
-      const notes = this.notes.map(n => {
+      const notes = this.notes.map((n) => {
         if (n.id === this.currentNoteID) {
           n = {
             ...n,
-            ...replace
+            ...replace,
           }
         }
 
         return n
       })
 
-      this.notes = notes;
+      this.notes = notes
       storage.set(NOTE_STORE_KEY, this.notes)
 
       return Promise.resolve()
     },
     /**
      * Delete Note
-     * 
-     * @param {String} id 
+     *
+     * @param {String} id
      */
     async deleteNote() {
       if (this.notes.length === 1) {
         await message(`You can't delete the last item of the note`, {
           title: 'Warning',
-          type: 'warning'
+          type: 'warning',
         })
         return
-      } 
+      }
 
-      const itemIdx = this.notes.findIndex(n => n.id !== this.currentNoteID)
-      const filtered = this.notes.filter(n => n.id !== this.currentNoteID)
+      const itemIdx = this.notes.findIndex((n) => n.id !== this.currentNoteID)
+      const filtered = this.notes.filter((n) => n.id !== this.currentNoteID)
 
-      this.notes = filtered;
+      this.notes = filtered
       storage.set(NOTE_STORE_KEY, this.notes)
 
       if (!isNil(filtered[itemIdx])) {
@@ -135,24 +136,25 @@ export const useNote = defineStore('note', {
       this.generatedDefinitions = []
     },
     /**
-     * 
+     * Generate Definitions
+     *
      * @returns
      */
     async generateDefinitions() {
-      const res = await invoke('generate_definitions', { content: this.getContent })
+      const res = await invoke('generate_definitions', {
+        content: this.getContent,
+      })
       // get the english translations splitted
-      const requests = res.map(def => invoke('get_definition_vec', { def }))
-      
-      return Promise.all(requests)
-        .then(translations => {
-          translations.forEach((t, i) => {
-            res[i].translations = t
-          })
-
-          this.generatedDefinitions = res
-
-          return Promise.resolve()
+      const requests = res.map((def) => invoke('get_definition_vec', { def }))
+      return Promise.all(requests).then((translations) => {
+        translations.forEach((t, i) => {
+          res[i].translations = t
         })
+
+        this.generatedDefinitions = res
+
+        return Promise.resolve()
+      })
     },
     /**
      * Load Notes
@@ -166,7 +168,7 @@ export const useNote = defineStore('note', {
         this.createNewNote()
         return Promise.resolve()
       }
-      
+
       this.notes = notes
       this.setWorkingNoteID(notes[0].id)
       langStore.setLanguage(notes[0].label)
@@ -175,17 +177,17 @@ export const useNote = defineStore('note', {
     },
     /**
      * Export to CSV the definitions
-     * 
-     * @param {String} path 
-     * @returns 
+     *
+     * @param {String} path
+     * @returns
      */
     async exportToCSV(path) {
       await invoke('export_definition_to_csv', {
         defs: this.generatedDefinitions,
-        path
+        path,
       })
 
       return Promise.resolve()
-    }
-  }
+    },
+  },
 })

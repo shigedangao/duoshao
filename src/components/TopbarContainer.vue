@@ -1,9 +1,9 @@
 <script setup>
-import { useLanguage } from "../store";
+import { useLanguage } from '../store'
 import { TrashIcon, UploadIcon } from '@heroicons/vue/outline'
-import Select from './bootstrap/Select.vue'
-import { useNote } from "../store/note";
-import { save } from "@tauri-apps/api/dialog";
+import SelectItem from './bootstrap/SelectItem.vue'
+import { useNote } from '../store/note'
+import { save } from '@tauri-apps/api/dialog'
 
 // import the store
 const store = useLanguage()
@@ -14,29 +14,30 @@ const { setLanguage } = store
 /**
  * Selected
  *  Set the selected language for the app
- * 
+ *
  * @param {String} value
  */
 const selected = (value) => {
-  setLanguage(value)
-    .catch(err => console.log(err))
+  setLanguage(value).catch((err) => console.log(err))
 }
 
 const saveFile = () => {
   save({
-    filters: [{
-      name: 'export',
-      extensions: ['csv']
-    }]
+    filters: [
+      {
+        name: 'export',
+        extensions: ['csv'],
+      },
+    ],
   })
-  .then(path => noteStore.exportToCSV(path))
-  .catch(err => console.error(err))
+    .then((path) => noteStore.exportToCSV(path))
+    .catch((err) => console.error(err))
 }
 </script>
 
 <template>
   <div class="topbar__container">
-    <Select :selected="selected" />
+    <select-item :selected="selected" />
     <div class="topbar__container-icon">
       <TrashIcon class="topbar-icon" @click="noteStore.deleteNote" />
       <UploadIcon class="topbar-icon" @click="saveFile" />
@@ -58,7 +59,7 @@ const saveFile = () => {
 }
 
 .topbar-icon {
-  color: #B2B0B1;
+  color: #b2b0b1;
   margin-right: 10px;
   transition: background-color 100ms ease-in-out;
   border-radius: 8px;
@@ -67,17 +68,17 @@ const saveFile = () => {
 }
 
 .topbar-icon:hover {
-  background-color: #EBEAE8;
+  background-color: #ebeae8;
 }
 
 @media (prefers-color-scheme: dark) {
   .topbar__container {
-    background-color: #2C2E32;
+    background-color: #2c2e32;
     color: white;
   }
 
   .topbar-icon:hover {
-    background-color: #393B3F;
+    background-color: #393b3f;
   }
 }
 </style>

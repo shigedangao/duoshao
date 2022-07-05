@@ -1,11 +1,9 @@
 <script setup>
-import { ref } from 'vue'
-
 const props = defineProps({
   label: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 
@@ -19,7 +17,7 @@ const props = defineProps({
 .tag__container {
   border: 1px solid transparent;
   border-radius: 5px;
-  background-color: #F3AB52;
+  background-color: #f3ab52;
   font-size: 0.8em;
   padding: 0px 15px 0px 15px;
   display: inline-block;
@@ -32,7 +30,7 @@ const props = defineProps({
 
 @media (prefers-color-scheme: dark) {
   .tag__container {
-    background-color: #F36752;
+    background-color: #f36752;
     color: white;
   }
 }

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 import { TranslateIcon } from '@heroicons/vue/outline'
 
 // state
@@ -9,8 +9,8 @@ const selected = ref('chinese')
 const props = defineProps({
   selected: {
     type: Function,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const onSelected = () => {
@@ -30,7 +30,7 @@ const onSelected = () => {
 
 <style scoped>
 .searchbar__container {
-  border: 1px solid grey;
+  border: 1px solid #b3b0b0;
   border-radius: 8px;
   padding: 5px 10px;
   margin-right: 15px;
@@ -42,7 +42,7 @@ const onSelected = () => {
 .translate-icon {
   width: 15px;
   height: 15px;
-  color: #B2B0B1;
+  color: #b2b0b1;
 }
 
 select {
@@ -56,27 +56,27 @@ select {
 }
 
 .focus {
-  border: 1px solid #A91E85 !important;
+  border: 1px solid #a91e85 !important;
 }
 
 input.middle:focus {
-    outline-width: 0;
+  outline-width: 0;
 }
 
 input:focus,
 select:focus,
 textarea:focus,
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 @media (prefers-color-scheme: dark) {
   .searchbar__container {
-    border: 1px solid #5F6164;
+    border: 1px solid #5f6164;
   }
 
   select {
-    color: #B2B0B1;
+    color: #b2b0b1;
   }
 }
 </style>
