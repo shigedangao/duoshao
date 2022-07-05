@@ -53,6 +53,7 @@ select {
   padding: 0px 10px;
   font-size: 0.8em;
   width: 100%;
+  color: #b2b0b1;
 }
 
 .focus {
