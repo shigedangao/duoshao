@@ -28,7 +28,7 @@ const onSelected = () => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .searchbar__container {
   border: 1px solid #b3b0b0;
   border-radius: 8px;

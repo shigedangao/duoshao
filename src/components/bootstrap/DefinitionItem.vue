@@ -35,7 +35,7 @@ const color = generateLightColorHex()
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .definition-item {
   display: flex;
 }

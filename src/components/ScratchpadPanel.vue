@@ -36,7 +36,7 @@ onUpdated(() => {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .scratchpad__container {
   width: 50%;
   padding: 0px 10px 5px 10px;
@@ -44,7 +44,7 @@ onUpdated(() => {
 
 @media (prefers-color-scheme: dark) {
   .scratchpad__container {
-    background-color: #e1e1e1;
+    background-color: #1e1e1e;
   }
 }
 </style>

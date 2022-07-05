@@ -20,16 +20,16 @@ defineProps({
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .counter__wrapper {
   display: flex;
   height: 30px;
   align-items: center;
-}
 
-.counter__wrapper-label {
-  padding: 0px 10px;
-  font-size: 0.8em;
+  &-label {
+    padding: 0px 10px;
+    font-size: 0.8em;
+  }
 }
 
 .counter__container {

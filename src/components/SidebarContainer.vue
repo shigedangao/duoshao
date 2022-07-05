@@ -71,26 +71,41 @@ function itemCallback(id) {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .sidebar__container {
   height: 100vh;
   background-color: #ffffff;
   color: #454545;
   display: flex;
   width: 25%;
-}
 
-.sidebar__container-icon {
-  display: block;
-  margin-left: 10px;
-  width: 24px;
-  padding: 5px;
-  border-radius: 8px;
-  transition: background-color 100ms ease-in-out;
-}
+  &-icon {
+    display: block;
+    margin-left: 10px;
+    width: 24px;
+    padding: 5px;
+    border-radius: 8px;
+    transition: background-color 100ms ease-in-out;
 
-.sidebar__container-icon:hover {
-  background-color: #ebeae8;
+    &:hover {
+      background-color: #ebeae8;
+    }
+  }
+
+  &-item {
+    flex-grow: 1;
+  }
+
+  &-handle {
+    width: 1px;
+    height: 100vh;
+    background-color: #e6e6e6;
+  }
+
+  &-list {
+    height: 100%;
+    overflow-y: auto;
+  }
 }
 
 .pen-icon {
@@ -100,36 +115,18 @@ function itemCallback(id) {
   height: 24px;
 }
 
-.sidebar__container-item {
-  flex-grow: 1;
-}
-
-.sidebar__container-handle {
-  width: 1px;
-  height: 100vh;
-}
-
-.sidebar__container-handle {
-  background-color: #e6e6e6;
-}
-
-.sidebar__container-list {
-  height: 100%;
-  overflow-y: auto;
-}
-
 @media (prefers-color-scheme: dark) {
   .sidebar__container {
     background-color: #232528;
     color: white;
-  }
 
-  .sidebar__container-handle {
-    background-color: #000000;
-  }
+    &-handle {
+      background-color: #000000;
+    }
 
-  .sidebar__container-icon:hover {
-    background-color: #393b3f;
+    &-icon:hover {
+      background-color: #393b3f;
+    }
   }
 }
 </style>

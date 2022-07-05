@@ -25,7 +25,7 @@ const { generatedDefinitions } = storeToRefs(store)
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .generated__container {
   width: 50%;
   background-color: #f2f2f2;

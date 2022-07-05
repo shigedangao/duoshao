@@ -45,17 +45,17 @@ const saveFile = () => {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .topbar__container {
   width: 100%;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: end;
-}
 
-.topbar__container-icon {
-  display: flex;
+  &-icon {
+    display: flex;
+  }
 }
 
 .topbar-icon {
@@ -65,10 +65,11 @@ const saveFile = () => {
   border-radius: 8px;
   width: 24px;
   height: 24px;
-}
 
-.topbar-icon:hover {
-  background-color: #ebeae8;
+  &:hover {
+    background-color: #ebeae8;
+    cursor: pointer;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

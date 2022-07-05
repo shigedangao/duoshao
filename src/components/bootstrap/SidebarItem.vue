@@ -47,7 +47,7 @@ const props = defineProps({
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .sidebar__item__container {
   margin: 10px;
   width: auto;
@@ -56,32 +56,32 @@ const props = defineProps({
   text-align: left;
   padding: 10px;
   transition: background-color 100ms ease-in-out;
-}
 
-.sidebar__item__container:hover {
-  cursor: pointer;
-}
+  &:hover {
+    cursor: pointer;
+  }
 
-.sidebar__item__container.active {
-  background-color: #79aadf;
-}
+  &-title {
+    font-weight: bold;
+  }
 
-.sidebar__item__container-title {
-  font-weight: bold;
-}
+  &-date {
+    font-size: 0.8em;
+  }
 
-.sidebar__item__container-date {
-  font-size: 0.8em;
+  &.active {
+    background-color: #79aadf;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   .sidebar__item__container {
     background-color: #464646;
     color: white;
-  }
 
-  .sidebar__item__container.active {
-    background-color: #2b4668 !important;
+    &.active {
+      background-color: #2b4668 !important;
+    }
   }
 }
 </style>

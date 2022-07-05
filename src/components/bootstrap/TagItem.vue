@@ -13,7 +13,7 @@ const props = defineProps({
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .tag__container {
   border: 1px solid transparent;
   border-radius: 5px;
@@ -22,10 +22,10 @@ const props = defineProps({
   padding: 0px 15px 0px 15px;
   display: inline-block;
   width: auto;
-}
 
-.tag__container-content {
-  color: white;
+  &-content {
+    color: white;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

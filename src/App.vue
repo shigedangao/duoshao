@@ -27,7 +27,7 @@ loadNotes()
   </div>
 </template>
 
-<style>
+<style lang="scss">
 body {
   padding: 0px;
   margin: 0px;
@@ -52,10 +52,10 @@ p {
 
 .main {
   flex-grow: 1;
-}
 
-.core__container {
-  display: flex;
+  .core__container {
+    display: flex;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
