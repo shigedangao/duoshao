@@ -4,15 +4,18 @@ import { PencilAltIcon } from '@heroicons/vue/outline'
 import SidebarItem from './bootstrap/SidebarItem.vue'
 import { useNote } from '../store/note'
 import { storeToRefs } from 'pinia'
+import { useLanguage } from '../store'
 
 // Load the store
 const noteStore = useNote()
+const langStore = useLanguage()
 // Create a ref
 const position = ref(20)
 const selectedIndex = ref(0)
 // Link the store
 const { notes } = storeToRefs(noteStore)
 const { createNewNote, setWorkingNoteID } = noteStore
+const { setLanguage } = langStore
 
 /**
  * Handle Dragging
@@ -37,9 +40,10 @@ const { createNewNote, setWorkingNoteID } = noteStore
 //  document.removeEventListener('mousemove', handleDragging)
 //}
 
-function itemCallback(id) {
+async function itemCallback(id, lang) {
   selectedIndex.value = this.index
   setWorkingNoteID(id)
+  setLanguage(lang).catch((err) => console.error(err))
 }
 </script>
 
@@ -60,7 +64,7 @@ function itemCallback(id) {
           :id="n.id"
           :title="n.title"
           :formattedDate="n.formattedDate"
-          :label="n.label"
+          :lang="n.label"
           :click-cb="itemCallback"
           :active="selectedIndex === idx"
           :index="idx"

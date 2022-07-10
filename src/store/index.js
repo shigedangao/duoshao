@@ -13,9 +13,11 @@ export const useLanguage = defineStore('language', {
       const note = useNote()
       this.selectedLanguage = lang
 
-      return invoke('set_language', { lang }).then(() =>
+      await invoke('set_language', { lang }).then(() =>
         note.editNote({ label: lang })
       )
+
+      return Promise.resolve()
     },
   },
 })

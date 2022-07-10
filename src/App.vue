@@ -33,6 +33,8 @@ body {
   margin: 0px;
   background-color: transparent;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 p {

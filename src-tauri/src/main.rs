@@ -15,7 +15,6 @@ fn main() {
       hello_tauri,
       command::set_language,
       command::generate_definitions,
-      command::get_definition_vec,
       command::export_definition_to_csv
     ])
     .manage(state::Data::new())

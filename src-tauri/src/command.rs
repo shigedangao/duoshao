@@ -1,6 +1,6 @@
 use std::fs;
 use tauri::{State, InvokeError};
-use xuexi::definition::{Definition, CommonDefinitionLanguage};
+use xuexi::definition::Definition;
 use xuexi::export;
 use crate::state::{Data, Language};
 use crate::error::Error;
@@ -38,16 +38,6 @@ pub fn set_language(lang: &str, state: State<Data>) {
 pub fn generate_definitions(content: &str, state: State<Data>) -> Result<Vec<Definition>, InvokeError> {
     state.get_detected_word_list(content)
         .map_err(InvokeError::from)
-}
-
-/// Get the en definition from a definition struct
-/// 
-/// # Arguments
-/// 
-/// * `def` - Definition
-#[tauri::command]
-pub fn get_definition_vec(def: Definition) -> Vec<String> {
-    def.get_english_translations()
 }
 
 /// Export the definitions into a CSV

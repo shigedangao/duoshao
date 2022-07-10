@@ -14,7 +14,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  label: {
+  lang: {
     type: String,
     required: true,
   },
@@ -39,11 +39,11 @@ const props = defineProps({
   <div
     class="sidebar__item__container"
     v-bind:class="{ active: active }"
-    @click="clickCb(props.id)"
+    @click="clickCb(props.id, props.lang)"
   >
     <p class="sidebar__item__container-title">{{ props.title }}</p>
     <p class="sidebar__item__container-date">{{ props.formattedDate }}</p>
-    <tag-item :label="props.label" />
+    <tag-item :label="props.lang" />
   </div>
 </template>
 

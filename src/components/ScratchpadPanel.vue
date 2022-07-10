@@ -3,6 +3,7 @@ import TextareaItem from './bootstrap/TextareaItem.vue'
 import { useNote } from '../store/note'
 import { onUpdated } from 'vue'
 import { isEmpty } from 'ramda'
+import { confirm } from '@tauri-apps/api/dialog'
 
 // import the store
 const noteStore = useNote()
@@ -14,12 +15,20 @@ const triggerTextAnalysis = (content) => {
     title: content.substring(0, 20),
   })
   // Generate the definitions by calling Rust
-  noteStore.generateDefinitions().catch((err) => console.log(err))
+  noteStore.generateDefinitions().catch(() =>
+    confirm('An error occurred while generating the definition', {
+      type: 'error',
+    })
+  )
 }
 
 onUpdated(() => {
   if (!isEmpty(noteStore.getContent)) {
-    noteStore.generateDefinitions().catch((err) => console.log(err))
+    noteStore.generateDefinitions().catch(() =>
+      confirm('An error occurred while generating the definition', {
+        type: 'error',
+      })
+    )
   } else {
     noteStore.setEmptyDefinitions()
   }

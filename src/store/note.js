@@ -124,7 +124,6 @@ export const useNote = defineStore('note', {
       storage.set(NOTE_STORE_KEY, this.notes)
 
       if (!isNil(filtered[itemIdx])) {
-        console.log(filtered[itemIdx])
         this.currentNoteID = filtered[itemIdx].id
       } else {
         this.currentNoteID = filtered[filtered.length - 1].id
@@ -144,17 +143,16 @@ export const useNote = defineStore('note', {
       const res = await invoke('generate_definitions', {
         content: this.getContent,
       })
-      // get the english translations splitted
-      const requests = res.map((def) => invoke('get_definition_vec', { def }))
-      return Promise.all(requests).then((translations) => {
-        translations.forEach((t, i) => {
-          res[i].translations = t
-        })
 
-        this.generatedDefinitions = res
+      // somehow tauri in js can't find property which end by an 's'
+      const items = res.map((item) => {
+        item.translations = item.translation.split(',')
+        item.pronunciations = item.pronounciation.split(',')
 
-        return Promise.resolve()
+        return item
       })
+
+      this.generatedDefinitions = items
     },
     /**
      * Load Notes

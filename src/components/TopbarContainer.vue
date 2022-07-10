@@ -18,20 +18,25 @@ const { setLanguage } = store
  * @param {String} value
  */
 const selected = (value) => {
-  setLanguage(value).catch((err) => console.log(err))
+  setLanguage(value).catch(() =>
+    confirm('Unable to set the targeted language', { type: 'error' })
+  )
 }
 
 const saveFile = () => {
   save({
     filters: [
       {
+        title: 'Save definitions',
         name: 'export',
         extensions: ['csv'],
       },
     ],
   })
     .then((path) => noteStore.exportToCSV(path))
-    .catch((err) => console.error(err))
+    .catch(() =>
+      confirm('Error while exporting the definitions to CSV', { type: 'error' })
+    )
 }
 </script>
 
