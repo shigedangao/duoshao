@@ -17,7 +17,8 @@ jobs:
       - name: build duoshao project
         run: npm run tauri build
       - name: zip dmg
-        run: zip -j duoshao-osx.zip ./src-tauri/target/release/bundle/macos/duoshao.app
+        working-directory: ./src-tauri/target/release/bundle/macos
+        run: zip -r duoshao-osx.zip duoshao.app
       - uses: actions/upload-artifact@v3
         with:
           name: duoshao-osx.zip
