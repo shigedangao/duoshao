@@ -22,7 +22,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: duoshao-osx.zip
-          path: duoshao-osx.zip
+          path: ./src-tauri/target/release/bundle/macos/duoshao-osx.zip
 
   linux:
     runs-on: ubuntu-20.04
