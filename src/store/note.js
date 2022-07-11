@@ -142,6 +142,14 @@ export const useNote = defineStore('note', {
     async generateDefinitions() {
       const res = await invoke('generate_definitions', {
         content: this.getContent,
+      }).catch((err) => {
+        if (
+          err === 'No definition has been founded for the targeted language'
+        ) {
+          return Promise.resolve([])
+        }
+
+        return Promise.reject(err)
       })
 
       // somehow tauri in js can't find property which end by an 's'
