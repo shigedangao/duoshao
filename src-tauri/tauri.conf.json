@@ -16,8 +16,8 @@
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
-      "copyright": "",
+      "category": "Productivity",
+      "copyright": "shigedangao - marc intha-amnouay",
       "deb": {
         "depends": []
       },
@@ -29,14 +29,15 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.shigedangao.la",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
         "frameworks": [],
         "providerShortName": null,
-        "signingIdentity": null
+        "signingIdentity": null,
+        "minimumSystemVersion": "10.13"
       },
       "resources": [],
       "shortDescription": "",

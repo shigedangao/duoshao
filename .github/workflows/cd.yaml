@@ -1,0 +1,26 @@
+name: build
+
+on: [push]
+
+jobs:
+  osx:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: create dist dir
+        run: mkdir dist
+      - name: install tauri command
+        run: npm install --save-dev @tauri-apps/cli
+      - name: build duoshao project
+        run: npm run tauri build
+  linux:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: create dist dir
+        run: mkdir dist
+      - name: install tauri command
+        run: npm install --save-dev @tauri-apps/cli
+      - name: build duoshao project
+        run: npm run tauri build
+    
