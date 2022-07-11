@@ -20,7 +20,7 @@ jobs:
       - name: create dist dir
         run: mkdir dist
       - name: install libdus
-        run: sudo apt install libdbus-1-dev pkg-config
+        run: sudo apt install libdbus-1-dev pkg-config libgtk-3-dev
       - name: install tauri command
         run: npm install --save-dev @tauri-apps/cli
       - name: build duoshao project
