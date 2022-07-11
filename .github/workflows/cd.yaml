@@ -1,6 +1,9 @@
 name: build
 
-on: [push]
+on:
+  create:
+    tags:
+      - v*
 
 jobs:
   osx:
@@ -13,6 +16,13 @@ jobs:
         run: npm install --save-dev @tauri-apps/cli
       - name: build duoshao project
         run: npm run tauri build
+      - name: zip dmg
+        run: zip -j duoshao-osx.zip ./src-tauri/target/release/bundle/dmg/*.dmg
+      - uses: actions/upload-artifact@v3
+        with:
+          name: duoshao-osx.zip
+          path: duoshao-osx.zip
+
   linux:
     runs-on: ubuntu-20.04
     steps:
@@ -33,4 +43,16 @@ jobs:
         run: npm install --save-dev @tauri-apps/cli
       - name: build duoshao project
         run: npm run tauri build
+      - name: zip linux output
+        run: zip -j duoshao-linux.zip ./src-tauri/target/release/bundle/deb/*.deb
+      - uses: actions/download-artifact@v3
+        with:
+          name: duoshao-osx.zip
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: |
+            duoshao-linux.zip
+            duoshao-osx.zip
     
