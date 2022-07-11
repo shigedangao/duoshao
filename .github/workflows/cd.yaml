@@ -19,6 +19,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: create dist dir
         run: mkdir dist
+      - name: install libdus
+        run: sudo apt install libdbus-1-dev pkg-config
       - name: install tauri command
         run: npm install --save-dev @tauri-apps/cli
       - name: build duoshao project
