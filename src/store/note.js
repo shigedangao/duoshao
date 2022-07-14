@@ -9,7 +9,7 @@ import { message } from '@tauri-apps/api/dialog'
 
 // constant
 const NOTE_STORE_KEY = 'note'
-const DEFAULT_NOTE_LABEL = 'chinese'
+const DEFAULT_NOTE_LABEL = 'traditional_chinese'
 
 export const useNote = defineStore('note', {
   getters: {

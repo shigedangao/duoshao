@@ -1,5 +1,6 @@
 use std::sync::Mutex;
 use xuexi::chinese::Dictionary as CNDictionnary;
+use xuexi::chinese::Version;
 use xuexi::laotian::Dictionary as LaoDictionnary;
 use xuexi::word::DetectWord;
 use xuexi::ordering::Ops;
@@ -7,19 +8,21 @@ use xuexi::definition::Definition;
 use crate::error::Error;
 
 pub enum Language {
-    Chinese,
+    TraditionalChinese,
+    SimplifiedChinese,
     Laotian
 }
 
 impl Default for Language {
     fn default() -> Self {
-        Self::Chinese
+        Self::TraditionalChinese
     }
 }
 
 #[derive(Default)]
 pub struct Data {
-  pub chinese: CNDictionnary,
+  pub traditional_chinese: CNDictionnary,
+  pub simplified_chinese: CNDictionnary,
   pub laotian: LaoDictionnary,
   pub targeted_language: Mutex<Language>,
   pub text: Mutex<String>
@@ -30,14 +33,18 @@ impl Data {
     /// in the memory. Maybe it could be better to initialize them later when the user select one
     /// of the language
     pub fn new() -> Self {
-        let chinese = xuexi::load_chinese_dictionary()
+        let traditional_chinese = xuexi::load_chinese_dictionary(Some(Version::Traditional))
             .expect("Expect to load chinese dictionary");
+
+        let simplified_chinese = xuexi::load_chinese_dictionary(Some(Version::Simplified))
+            .expect("Expect to load simplified chinese dictionary");
             
         let laotian = xuexi::load_laotian_dictionary()
             .expect("Expect to load laotian dictionary");
 
         Data {
-            chinese,
+            traditional_chinese,
+            simplified_chinese,
             laotian,
             targeted_language: Mutex::new(Language::default()),
             text: Mutex::new(String::new())
@@ -55,7 +62,8 @@ impl Data {
             .map_err(|_| Error::Lock("language lock".to_string()))?;
 
         let res = match *language_lock {
-            Language::Chinese => self.chinese.get_list_detected_words(content),
+            Language::TraditionalChinese => self.traditional_chinese.get_list_detected_words(content),
+            Language::SimplifiedChinese => self.simplified_chinese.get_list_detected_words(content),
             Language::Laotian => self.laotian.get_list_detected_words(content)
         };
 

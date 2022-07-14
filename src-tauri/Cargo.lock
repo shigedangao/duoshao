@@ -1463,9 +1463,9 @@ checksum = "c41e0c4fef86961ac6d6f8a82609f55f31b05e4fce149ac5710e439df7619ba4"
 
 [[package]]
 name = "mac-notification-sys"
-version = "0.5.3"
+version = "0.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47a4acb83c904844ca12aafeac6fff6f781cf9e220a985c1db94fd94123993aa"
+checksum = "fff231a88fe2e9985f9d159a2f02986fe46daa0f6af976a0d934be4870cc9d02"
 dependencies = [
  "cc",
  "dirs-next",
@@ -3066,10 +3066,11 @@ checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
 
 [[package]]
 name = "tokio"
-version = "1.19.2"
+version = "1.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c51a52ed6686dd62c320f9b89299e9dfb46f730c7a48e635c19f21d116cb1439"
+checksum = "57aec3cfa4c296db7255446efb4928a6be304b431a806216105542a67b6ca82e"
 dependencies = [
+ "autocfg",
  "bytes",
  "memchr",
  "num_cpus",
@@ -3780,7 +3781,7 @@ checksum = "d2d7d3948613f75c98fd9328cfdcc45acc4d360655289d0a7d4ec931392200a3"
 [[package]]
 name = "xuexi"
 version = "0.1.0"
-source = "git+https://github.com/shigedangao/xuexi?branch=main#3ea032c1a621f9909f94acaf19f661fd712172e6"
+source = "git+https://github.com/shigedangao/xuexi?branch=main#9600160626a7784d8bae843e1d734860085dfe62"
 dependencies = [
  "chamkho",
  "csv",

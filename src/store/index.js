@@ -5,7 +5,7 @@ import { useNote } from './note'
 export const useLanguage = defineStore('language', {
   state: () => {
     return {
-      selectedLanguage: 'chinese',
+      selectedLanguage: 'traditional_chinese',
     }
   },
   actions: {

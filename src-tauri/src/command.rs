@@ -20,7 +20,8 @@ pub fn set_language(lang: &str, state: State<Data>) {
         .expect("Expect to acquired lock to change the language");
 
     match lang {
-        "chinese" => *lock_language = Language::Chinese,
+        "traditional_chinese" => *lock_language = Language::TraditionalChinese,
+        "simplified_chinese" => *lock_language = Language::SimplifiedChinese,
         "laotian" => *lock_language = Language::Laotian,
         _ => *lock_language = Language::Laotian
     }
