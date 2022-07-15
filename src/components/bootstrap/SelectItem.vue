@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { TranslateIcon } from '@heroicons/vue/outline'
 
 // state
-const selected = ref('chinese')
+const selected = ref('traditional_chinese')
 
 // props
 const props = defineProps({
@@ -22,7 +22,8 @@ const onSelected = () => {
   <div class="searchbar__container">
     <TranslateIcon class="translate-icon" />
     <select name="language" v-model="selected" @change="onSelected">
-      <option value="chinese">Chinese</option>
+      <option value="traditional_chinese">Traditional chinese</option>
+      <option value="simplified_chinese">Simplified chinese</option>
       <option value="laotian">Laotian</option>
     </select>
   </div>

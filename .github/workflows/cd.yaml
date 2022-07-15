@@ -6,55 +6,83 @@ on:
       - v*
 
 jobs:
-  osx:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: create dist dir
-        run: mkdir dist
-      - name: install tauri command
-        run: npm install --save-dev @tauri-apps/cli
-      - name: build duoshao project
-        run: npm run tauri build
-      - name: zip dmg
-        working-directory: ./src-tauri/target/release/bundle/macos
-        run: zip -r duoshao-osx.zip duoshao.app
-      - uses: actions/upload-artifact@v3
-        with:
-          name: duoshao-osx.zip
-          path: ./src-tauri/target/release/bundle/macos/duoshao-osx.zip
+  create-release:
+    runs-on: ubuntu-latest
+    outputs:
+      release_id: ${{ steps.create-release.outputs.result }}
 
-  linux:
-    runs-on: ubuntu-20.04
-    needs: osx
     steps:
-      - uses: actions/checkout@v3
-      - name: create dist dir
-        run: mkdir dist
-      - name: install libdus
-        run: |
-          sudo apt install libwebkit2gtk-4.0-dev \
-            build-essential \
-            curl \
-            wget \
-            libssl-dev \
-            libgtk-3-dev \
-            libayatana-appindicator3-dev \
-            librsvg2-dev
-      - name: install tauri command
-        run: npm install --save-dev @tauri-apps/cli
-      - name: build duoshao project
-        run: npm run tauri build
-      - name: zip linux output
-        run: zip -j duoshao-linux.zip ./src-tauri/target/release/bundle/deb/*.deb
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
         with:
-          name: duoshao-osx.zip
-      - name: Release
-        uses: softprops/action-gh-release@v1
+          node-version: 16
+      - name: get version
+        run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+      - name: create release
+        id: create-release
+        uses: actions/github-script@v6
         with:
-          draft: true
-          files: |
-            duoshao-linux.zip
-            duoshao-osx.zip
+          script: |
+            const { data } = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `app-v${process.env.PACKAGE_VERSION}`,
+              name: `Desktop App v${process.env.PACKAGE_VERSION}`,
+              body: 'Take a look at the assets to download and install this app.',
+              draft: true,
+              prerelease: false
+            })
+            
+            return data.id
+
+  build-tauri:
+    needs: create-release
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16
+    - name: install Rust stable
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+    - name: install dependencies (ubuntu only)
+      if: matrix.platform == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+    - name: install app dependencies and build it
+      run: npm install && npm run build
+    - uses: tauri-apps/tauri-action@v0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        releaseId: ${{ needs.create-release.outputs.release_id }}
+
+  publish-release:
+    runs-on: ubuntu-latest
+    needs: [ create-release, build-tauri ]
     
+    steps:
+      - name: publish release
+        id: publish-release
+        uses: actions/github-script@v6
+        env:
+          release_id: ${{ needs.create-release.outputs.release_id }}
+        with:
+          script: |
+            github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: process.env.release_id,
+              draft: false,
+              prerelease: false
+            })
