@@ -66,6 +66,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         releaseId: ${{ needs.create-release.outputs.release_id }}
+        includeDebug: true
+        releaseDraft: true
 
   publish-release:
     runs-on: ubuntu-latest
