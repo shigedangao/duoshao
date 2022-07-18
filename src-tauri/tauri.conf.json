@@ -12,7 +12,9 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "fs": {
+        "writeFile": true
+      }
     },
     "bundle": {
       "active": true,
