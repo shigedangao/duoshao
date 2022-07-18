@@ -19,7 +19,7 @@ serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.0.3", features = ["fs-write-file"] }
 anyhow = "1.0"
-xuexi = { git = "https://github.com/shigedangao/xuexi", features = ["chinese", "laotian"], branch = "main" }
+xuexi = { git = "https://github.com/shigedangao/xuexi", features = ["chinese"], branch = "main" }
 
 [features]
 # by default Tauri runs in production mode
