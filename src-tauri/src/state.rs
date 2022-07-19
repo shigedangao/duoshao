@@ -23,7 +23,7 @@ impl Default for Language {
 pub struct Data {
   pub traditional_chinese: CNDictionnary,
   pub simplified_chinese: CNDictionnary,
-  pub laotian: Option<LaoDictionnary>,
+  pub laotian: LaoDictionnary,
   pub targeted_language: Mutex<Language>,
   pub text: Mutex<String>
 }
@@ -39,13 +39,13 @@ impl Data {
         let simplified_chinese = xuexi::load_chinese_dictionary(Some(Version::Simplified))
             .expect("Expect to load simplified chinese dictionary");
             
-        //let laotian = xuexi::load_laotian_dictionary()
-        //    .expect("Expect to load laotian dictionary");
+        let laotian = xuexi::load_laotian_dictionary()
+            .expect("Expect to load laotian dictionary");
 
         Data {
             traditional_chinese,
             simplified_chinese,
-            laotian: None,
+            laotian,
             targeted_language: Mutex::new(Language::default()),
             text: Mutex::new(String::new())
         }
@@ -64,7 +64,7 @@ impl Data {
         let res = match *language_lock {
             Language::TraditionalChinese => self.traditional_chinese.get_list_detected_words(content),
             Language::SimplifiedChinese => self.simplified_chinese.get_list_detected_words(content),
-            Language::Laotian => None
+            Language::Laotian => self.laotian.get_list_detected_words(content)
         };
 
         if let Some(def) = res {

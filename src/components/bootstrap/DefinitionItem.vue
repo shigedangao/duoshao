@@ -95,5 +95,9 @@ const color = generateLightColorHex()
   .translation__content {
     color: white;
   }
+
+  .list__content-item {
+    color: white;
+  }
 }
 </style>
