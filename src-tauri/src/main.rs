@@ -3,26 +3,38 @@
   windows_subsystem = "windows"
 )]
 
+use tauri_plugin_log::{
+  fern::colors::ColoredLevelConfig,
+  LoggerBuilder,
+  LogTarget
+};
+
 mod state;
 mod command;
 mod error;
 
 fn main() {
   let context = tauri::generate_context!();
+  let colors = ColoredLevelConfig::default();
+  let targets = [
+    LogTarget::LogDir,
+    LogTarget::Stderr,
+  ];
+
   tauri::Builder::default()
     .menu(tauri::Menu::os_default(&context.package_info().name))
     .invoke_handler(tauri::generate_handler![
-      hello_tauri,
       command::set_language,
       command::generate_definitions,
       command::export_definition_to_csv
     ])
     .manage(state::Data::new())
+    .plugin(
+      LoggerBuilder::new()
+        .with_colors(colors)
+        .targets(targets)
+        .build()
+    )
     .run(context)
-    .expect("error while running tauri application");
-}
-
-#[tauri::command]
-fn hello_tauri() -> String {
-  "hello".to_string()
+    .expect("error while running duoshao application");
 }
