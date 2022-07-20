@@ -10,7 +10,7 @@ The app support multiple platform:
 
 Below is a small gif showing how it works
 
-![duoshao](video.mp4)
+https://user-images.githubusercontent.com/7852211/180075179-088600a4-3bae-4b73-999a-7ffa00268110.mp4
 
 ## Supported language
 
