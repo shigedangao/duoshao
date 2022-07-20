@@ -10,7 +10,7 @@ The app support multiple platform:
 
 Below is a small gif showing how it works
 
-![duoshao](video.mov)
+![duoshao](video.mp4)
 
 ## Supported language
 
