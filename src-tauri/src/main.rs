@@ -12,13 +12,15 @@ use tauri_plugin_log::{
 mod state;
 mod command;
 mod error;
+mod loader;
 
-fn main() {
+#[tokio::main]
+async fn main() {
   let context = tauri::generate_context!();
   let colors = ColoredLevelConfig::default();
   let targets = [
     LogTarget::LogDir,
-    LogTarget::Stderr,
+    LogTarget::Stderr
   ];
 
   tauri::Builder::default()
@@ -28,7 +30,7 @@ fn main() {
       command::generate_definitions,
       command::export_definition_to_csv
     ])
-    .manage(state::Data::new())
+    .manage(state::Data::new().await)
     .plugin(
       LoggerBuilder::new()
         .with_colors(colors)

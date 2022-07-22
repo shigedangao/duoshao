@@ -6,6 +6,8 @@ use xuexi::word::DetectWord;
 use xuexi::ordering::Ops;
 use xuexi::definition::Definition;
 use crate::error::Error;
+use crate::loader;
+use crate::loader::load_other_dictionary;
 
 pub enum Language {
     TraditionalChinese,
@@ -32,20 +34,18 @@ impl Data {
     /// Initialize a new state. So far we're loading the two language at the same time
     /// in the memory. Maybe it could be better to initialize them later when the user select one
     /// of the language
-    pub fn new() -> Self {
-        let traditional_chinese = xuexi::load_chinese_dictionary(Some(Version::Traditional))
-            .expect("Expect to load chinese dictionary");
-
-        let simplified_chinese = xuexi::load_chinese_dictionary(Some(Version::Simplified))
-            .expect("Expect to load simplified chinese dictionary");
-            
-        let laotian = xuexi::load_laotian_dictionary()
-            .expect("Expect to load laotian dictionary");
+    pub async fn new() -> Self {
+        // Load the dictionary asynchronously
+        let (tc, sc, lao) = tokio::try_join!(
+            loader::load_cn_dictionary(xuexi::load_chinese_dictionary, Some(Version::Traditional)),
+            loader::load_cn_dictionary(xuexi::load_chinese_dictionary, Some(Version::Simplified)),
+            load_other_dictionary( xuexi::load_laotian_dictionary)
+        ).expect("Expect to load dictionaries");
 
         Data {
-            traditional_chinese,
-            simplified_chinese,
-            laotian,
+            traditional_chinese: tc,
+            simplified_chinese: sc,
+            laotian: lao,
             targeted_language: Mutex::new(Language::default()),
             text: Mutex::new(String::new())
         }
