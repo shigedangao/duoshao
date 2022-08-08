@@ -61,7 +61,7 @@ checksum = "c91f1f46651137be86f3a2b9a8359f9ab421d04d941c62b5982e1ca21113adf9"
 
 [[package]]
 name = "app"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "anyhow",
  "serde",
@@ -3600,8 +3600,8 @@ checksum = "d2d7d3948613f75c98fd9328cfdcc45acc4d360655289d0a7d4ec931392200a3"
 
 [[package]]
 name = "xuexi"
-version = "0.1.0"
-source = "git+https://github.com/shigedangao/xuexi?branch=main#03c1a8b52e652633b1a8d54347447b2da676e5d1"
+version = "0.1.1"
+source = "git+https://github.com/shigedangao/xuexi?branch=main#5ec99c51f5dc1c87ca5ca08e0eaf4dd521ac480f"
 dependencies = [
  "chamkho",
  "csv",
